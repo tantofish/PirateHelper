@@ -1,5 +1,6 @@
 package wcm.tuwolf.piratehelper;
 
+import itri.u9lab.towolf.ratiofixer.RatioFixer;
 import itri.u9lab.towolf.ratiofixer.RatioRelativeLayout;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,9 @@ public class MainActivity extends Activity{
 	    super.onCreate(savedInstanceState);
 
 	    RatioRelativeLayout mView = new RatioRelativeLayout(this);
+	    
+	    //cyy setting global ratio fixer
+	    RatioFixer.setGlobalRatioFixer(mView.getRatioFixer());
 	    mView.setBackgroundColor(Color.WHITE);
 
 	    Button bt1 = new Button(this);
@@ -39,6 +43,19 @@ public class MainActivity extends Activity{
 			}
 		});
 	    	
+	    Button bt2 = new Button(this);
+	    bt2.setText("choosing activity");
+	    bt2.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this, ChoosingActivity.class);
+				startActivity(intent);
+			}
+		});
+	    mView.addView(bt2,300,100,234,200);
+	    
 	    mView.setToContentView(this);
 
 	}	
