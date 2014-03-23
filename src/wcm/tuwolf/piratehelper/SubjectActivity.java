@@ -3,8 +3,10 @@ package wcm.tuwolf.piratehelper;
 import itri.u9lab.towolf.ratiofixer.RatioRelativeLayout;
 import android.R.string;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +24,19 @@ public class SubjectActivity extends Activity{
 	static string badGuySubject;
 	static string newBieSubject;
 	
+	
+	TextView nPlayerText;
+	TextView goodGuy;
+	TextView BadGuy;
+	TextView newBie;
+	Button doneBt;
+	EditText goodGuySubjectEdTxt;
+	EditText badGuySubjectEdTxt;
+	EditText newBieSubjectEdTxt;
+	Editable newBieText;
+	Editable goodGuyText;
+	Editable badGuyText;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 
@@ -29,35 +44,37 @@ public class SubjectActivity extends Activity{
 	    mView.setBackgroundColor(Color.WHITE);
 
 	    
-	    TextView nPlayerText = new TextView(this);
-	    TextView goodGuy = new TextView(this);
-	    TextView BadGuy  = new TextView(this);
-	    TextView newBie  = new TextView(this);
-	    Button doneBt = new Button(this);
-	    EditText goodGuySubjectEdTxt = new EditText(this);
-	    EditText BadGuySubjectEdTxt  = new EditText(this);
-	    EditText newBieSubjectEdTxt  = new EditText(this);
+	    nPlayerText = new TextView(this);
+	    goodGuy = new TextView(this);
+	    BadGuy  = new TextView(this);
+	    newBie  = new TextView(this);
+	    doneBt = new Button(this);
+	    goodGuySubjectEdTxt = new EditText(this);
+	    badGuySubjectEdTxt  = new EditText(this);
+	    newBieSubjectEdTxt  = new EditText(this);
 	    
 	    
 	    Spinner nPlayerSpinner = new Spinner(this);
 	    mView.addView(nPlayerSpinner, 150, 100, 250, 170);
 	    
-	    nPlayerText.setText("§H°@°@º∆:");
+	    nPlayerText.setText("‰∫∫Êï∏:");
 	    mView.addView(nPlayerText, 200, 100, 50, 200);
 	    
-	    goodGuy.setText("¶n§H√D•ÿ:");
+	    goodGuy.setText("Â•Ω‰∫∫:");
 	    mView.addView(goodGuy, 200, 100, 50, 400);
-	    
 	    mView.addView(goodGuySubjectEdTxt, 500, 100, 250, 380);
+	    goodGuySubjectEdTxt.setHint("Ex:ËòãÊûú");
 	    
-	    
-	    BadGuy.setText("√a§H√D•ÿ:");
+	    BadGuy.setText("Â£û‰∫∫:");
 	    mView.addView(BadGuy, 200, 100, 50, 600);
-	    mView.addView(BadGuySubjectEdTxt, 500, 100, 250, 580);
+	    mView.addView(badGuySubjectEdTxt, 500, 100, 250, 580);
+	    badGuySubjectEdTxt.setHint("Ex:‰∏ÄÁ®ÆÊ∞¥Êûú");
 	    
-	    newBie.setText("µÊ≥æ√D•ÿ:");
+	    
+	    newBie.setText("ËèúÈ≥•:");
 	    mView.addView(newBie, 200, 100, 50, 800);
 	    mView.addView(newBieSubjectEdTxt, 500, 100, 250, 780);
+	    newBieSubjectEdTxt.setHint("Ex:È¶ôËïâ");
 	    
 	    doneBt.setText("Done");
 	    mView.addView(doneBt, 200, 100, 550, 1080);
@@ -66,6 +83,35 @@ public class SubjectActivity extends Activity{
 	    ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item,new Integer[]{5,6,7,8,9,10});
 	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    nPlayerSpinner.setAdapter(adapter);
+	    
+	    
+	    doneBt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				newBieText  = newBieSubjectEdTxt.getText();
+				goodGuyText = goodGuySubjectEdTxt.getText();
+				badGuyText  = badGuySubjectEdTxt.getText();
+				
+				//Log.d("Answer1", newBieText.toString());
+				//Log.d("Answer1", goodGuyText.toString());
+				//Log.d("Answer1", badGuyText.toString());
+				
+				Intent intent = new Intent();
+				intent.setClass(SubjectActivity.this, ChoosingActivity.class);
+				Bundle bundle = new Bundle();
+
+				bundle.putString("GoodGuy_Subject", goodGuyText.toString());
+				bundle.putString("BadGuy_Subject" , badGuyText.toString());
+				bundle.putString("New_Bie_Subject", newBieText.toString());
+				bundle.putInt("Play_Number", nPlayers);
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+		});
+	    
+	    
 	    nPlayerSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
 
 			@Override
@@ -83,19 +129,8 @@ public class SubjectActivity extends Activity{
 	    	
 	    });
 	    
-	    //goodGuySubject.setOnEditorActionListener();
             
-	   
-	    doneBt.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				//Intent intent = new Intent();
-				finish();
-			}
-		});
-	    	
+	   	
 	    mView.setToContentView(this);
 
 	}	
