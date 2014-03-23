@@ -22,8 +22,11 @@ public class ChoosingView extends RatioRelativeLayout {
 	BottomView mBV;
 
 	AnswerView mAV;
-
-	String goodAnswer, normalAnswer, badAnswer;
+	int mPeopleNumber;
+	Answer mAnswer;
+	
+	//String goodAnswer, normalAnswer, badAnswer;
+	int goodRemain, normalRemain, badRemain;
 
 	ArrayList<Integer> mPeopleState;
 
@@ -35,13 +38,16 @@ public class ChoosingView extends RatioRelativeLayout {
 		mPeopleState = new ArrayList<Integer>();
 		mContext = context;
 		mCV = new CircleView(context);
-		mCV.setPeopleNum(peopleNum);
-		mBV = new BottomView(context);
-
+		mPeopleNumber = peopleNum;
+		mCV.setPeopleNum(mPeopleNumber);
 		this.addView(mCV, 768, 615, 0, 0);
+		//mCV.setCurrentPeople(0);
+		
+		
+		mBV = new BottomView(context);
 		this.addView(mBV);
-
-		mAV = new AnswerView(context);
+		mAnswer = new Answer(mPeopleNumber);
+		mAV = new AnswerView(context,mAnswer);
 		mAV.setVisibility(INVISIBLE);
 
 		mAV.setOkClickListener(new OnClickListener() {
@@ -54,13 +60,19 @@ public class ChoosingView extends RatioRelativeLayout {
 			}
 		});
 		this.addView(mAV, 768, 1230, 0, 0);
+		
+		setCurrentPeople(0);
+		
+		//Answer.NeedPeopleNumberSet npn = Answer
 
 	}
 
 	public void setAnswer(String good, String normal, String bad) {
-		goodAnswer = good;
-		normalAnswer = normal;
-		badAnswer = bad;
+//		goodAnswer = good;
+//		normalAnswer = normal;
+//		badAnswer = bad;
+		
+		mAnswer.setAnswerString(good, normal, bad);
 	}
 
 	public void setAnswerViewOkClickLsitener(OnClickListener l) {
@@ -71,7 +83,7 @@ public class ChoosingView extends RatioRelativeLayout {
 		mCV.setPeopleItemClickListener(listener);
 	}
 
-	public void setHighlightPeople(int n) {
+	public void setCurrentPeople(int n) {
 		mCV.setCurrentPeople(n);
 	}
 
@@ -86,7 +98,7 @@ public class ChoosingView extends RatioRelativeLayout {
 		public CircleView(Context context) {
 			super(context);
 			// TODO Auto-generated constructor stub
-			this.setBackgroundColor(Color.RED);
+			this.setBackgroundColor(Color.WHITE);
 			// this.setLayoutParams(mRF.getLayoutParam(768, 615, 0, 0));
 
 			peopleItemList = new ArrayList<Button>();
@@ -115,21 +127,49 @@ public class ChoosingView extends RatioRelativeLayout {
 			}
 		}
 
+		private void invalidateView()
+		{
+			goodRemain = mAnswer.needGood();
+			normalRemain= mAnswer.needNormal();
+			badRemain = mAnswer.needBad();
+			
+			for (int i = 0; i < peopleItemList.size(); i++) {
+				if (i == currentPeople)
+				{
+					peopleItemList.get(i).setBackgroundColor(Color.MAGENTA);
+				}
+				else if (mPeopleState.get(i) == Answer.GOOD_PEOPLE)
+				{
+					peopleItemList.get(i).setBackgroundColor(Color.GREEN);
+					goodRemain--;
+				}
+				else if (mPeopleState.get(i) == Answer.NORMAL_PEOPLE)
+				{
+					peopleItemList.get(i).setBackgroundColor(Color.YELLOW);
+					normalRemain--;
+				}
+				else if (mPeopleState.get(i) == Answer.BAD_PEOPLE)
+				{
+					peopleItemList.get(i).setBackgroundColor(Color.RED);
+					badRemain--;
+				}
+				else
+				{
+					peopleItemList.get(i).setBackgroundColor(Color.BLUE);
+				}
+					
+			}
+			
+			mBV.goodManText.setText(Integer.toString(goodRemain));
+			mBV.normalManText.setText(Integer.toString(normalRemain));
+			mBV.badManText.setText(Integer.toString(badRemain));
+			
+
+		}
 		public void setCurrentPeople(int n) {
 			currentPeople = n;
-			for (int i = 0; i < peopleItemList.size(); i++) {
-				if (i == n)
-					peopleItemList.get(i).setBackgroundColor(Color.MAGENTA);
-				else if (mPeopleState.get(i) == Answer.GOOD_PEOPLE)
-					peopleItemList.get(i).setBackgroundColor(Color.GREEN);
-				else if (mPeopleState.get(i) == Answer.NORMAL_PEOPLE)
-					peopleItemList.get(i).setBackgroundColor(Color.YELLOW);
-				else if (mPeopleState.get(i) == Answer.BAD_PEOPLE)
-					peopleItemList.get(i).setBackgroundColor(Color.RED);
-				else
-					peopleItemList.get(i).setBackgroundColor(Color.BLUE);
-			}
-
+			invalidateView();
+			
 			// cyy TODO use another arraylist to save the status
 
 			// peopleItemList.get(currentPeople).setBackgroundColor(Color.BLUE);
@@ -138,7 +178,7 @@ public class ChoosingView extends RatioRelativeLayout {
 
 		}
 
-		public void decideCurrentPeople(Answer a) {
+		public void decideCurrentPeople(int a) {
 			// switch(a.getValue())
 			// {
 			// case Answer.GOOD_PEOPLE:
@@ -152,7 +192,7 @@ public class ChoosingView extends RatioRelativeLayout {
 			// break;
 			//
 			// }
-			mPeopleState.set(currentPeople, a.getValue());
+			mPeopleState.set(currentPeople, a);
 			setCurrentPeople(++currentPeople % mPeopleState.size()) ;
 
 		}
@@ -180,9 +220,9 @@ public class ChoosingView extends RatioRelativeLayout {
 			goodManBtn.setText("選好人");
 			goodManBtn.setBackgroundColor(Color.CYAN);
 			goodManBtn.setOnClickListener(new showAnswerViewListener(
-					new Answer(Answer.GOOD_PEOPLE)));
+					Answer.GOOD_PEOPLE));
 			goodManText = new TextView(mContext);
-			goodManText.setBackgroundColor(Color.DKGRAY);
+			//goodManText.setBackgroundColor(Color.DKGRAY);
 			this.addView(goodManBtn, mRF.getLayoutParam(w, h, d, 100));
 			this.addView(goodManText, mRF.getLayoutParam(w, h, d, 100 + h + d));
 
@@ -190,9 +230,9 @@ public class ChoosingView extends RatioRelativeLayout {
 			normalManBtn.setBackgroundColor(Color.CYAN);
 			normalManBtn.setText("選菜鳥");
 			normalManBtn.setOnClickListener(new showAnswerViewListener(
-					new Answer(Answer.NORMAL_PEOPLE)));
+					Answer.NORMAL_PEOPLE));
 			normalManText = new TextView(mContext);
-			normalManText.setBackgroundColor(Color.DKGRAY);
+			//normalManText.setBackgroundColor(Color.DKGRAY);
 			this.addView(normalManBtn, mRF.getLayoutParam(w, h, d * 2 + w, 100));
 			this.addView(normalManText,
 					mRF.getLayoutParam(w, h, d * 2 + w, 100 + h + d));
@@ -200,10 +240,10 @@ public class ChoosingView extends RatioRelativeLayout {
 			badManBtn = new Button(mContext);
 			badManBtn.setBackgroundColor(Color.CYAN);
 			badManBtn.setText("選壞人");
-			badManBtn.setOnClickListener(new showAnswerViewListener(new Answer(
-					Answer.BAD_PEOPLE)));
+			badManBtn.setOnClickListener(new showAnswerViewListener(
+					Answer.BAD_PEOPLE));
 			badManText = new TextView(mContext);
-			badManText.setBackgroundColor(Color.DKGRAY);
+			//badManText.setBackgroundColor(Color.DKGRAY);
 			// badManBtn.setOnClickListener()
 			this.addView(badManBtn,
 					mRF.getLayoutParam(w, h, d * 3 + w * 2, 100));
@@ -220,9 +260,9 @@ public class ChoosingView extends RatioRelativeLayout {
 		}
 
 		class showAnswerViewListener implements View.OnClickListener {
-			Answer mAnswer;
+			int mAnswer;
 
-			public showAnswerViewListener(Answer a) {
+			public showAnswerViewListener(int a) {
 				// TODO Auto-generated constructor stub
 				mAnswer = a;
 			}
@@ -230,7 +270,7 @@ public class ChoosingView extends RatioRelativeLayout {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mAV.setAnswer(mAnswer);
+				mAV.setAnswerText(mAnswer);
 				mAV.setVisibility(VISIBLE);
 			}
 

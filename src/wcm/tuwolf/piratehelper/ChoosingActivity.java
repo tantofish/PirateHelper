@@ -15,14 +15,14 @@ public class ChoosingActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		mView = new ChoosingView(this,15);
+		mView = new ChoosingView(this,5);
 
 		mView.setPeopleItemClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mView.setHighlightPeople(v.getId());
+				mView.setCurrentPeople(v.getId());
 			}
 		});
 		
