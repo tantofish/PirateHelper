@@ -56,6 +56,20 @@ public class MainActivity extends Activity{
 		});
 	    mView.addView(bt2,300,100,234,200);
 	    
+	    Button bt3 = new Button(this);
+	    bt3.setText("Gaming Activity");
+	    bt3.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this, GamingActivity.class);
+				startActivity(intent);
+			}
+		});
+	    mView.addView(bt3,300,100,234,350);
+	    
+	    
 	    mView.setToContentView(this);
 
 	}	

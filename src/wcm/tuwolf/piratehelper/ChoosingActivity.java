@@ -19,11 +19,6 @@ public class ChoosingActivity extends Activity{
 
 		Bundle bundle = this.getIntent().getExtras();
 		int nPlayers = bundle.getInt("Player_Number");
-		String goodGuySubject = bundle.getString("GoodGuy_Subject");
-		String badGuySubject = bundle.getString("BadGuy_Subject");
-		String newBieSubject = bundle.getString("NewBie_Subject");
-		mView.setAnswer(goodGuySubject, newBieSubject, badGuySubject);
-		
 		
 		mView.setPeopleItemClickListener(new OnClickListener() {
 			

@@ -105,7 +105,8 @@ public class SubjectActivity extends Activity{
 				bundle.putString("GoodGuy_Subject", goodGuyText.toString());
 				bundle.putString("BadGuy_Subject" , badGuyText.toString());
 				bundle.putString("New_Bie_Subject", newBieText.toString());
-				bundle.putInt("Play_Number", nPlayers);
+				bundle.putInt("Player_Number", nPlayers);
+				
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}
