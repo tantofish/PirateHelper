@@ -11,11 +11,12 @@ import android.widget.TextView;
 public class AnswerView extends RelativeLayout{
 
 	RatioFixer mRF;
-	Answer answer;
+	Answer mAnswer;
+	int answer;
 	TextView answerText;
 	Button okBtn;
 	
-	public AnswerView(Context context) {
+	public AnswerView(Context context, Answer gameAnswer) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		mRF = RatioFixer.getGlobalRatioFixer();
@@ -26,12 +27,14 @@ public class AnswerView extends RelativeLayout{
 		okBtn = new Button(context);
 		this.addView(okBtn,mRF.getLayoutParam(300, 100, 234, 700));
 		
+		mAnswer = gameAnswer;
+		
 	}
 	
-	public void setAnswer(Answer a)
+	public void setAnswerText(int a)
 	{
 		answer = a;
-		answerText.setText(a.toString());
+		answerText.setText(mAnswer.getAnswerString(a));
 	}
 
 

@@ -63,18 +63,18 @@ public class SubjectActivity extends Activity{
 	    goodGuy.setText("好人:");
 	    mView.addView(goodGuy, 200, 100, 50, 400);
 	    mView.addView(goodGuySubjectEdTxt, 500, 100, 250, 380);
-	    goodGuySubjectEdTxt.setHint("Ex:蘋果");
+	    goodGuySubjectEdTxt.setText("Ex:蘋果");
 	    
 	    BadGuy.setText("壞人:");
 	    mView.addView(BadGuy, 200, 100, 50, 600);
 	    mView.addView(badGuySubjectEdTxt, 500, 100, 250, 580);
-	    badGuySubjectEdTxt.setHint("Ex:一種水果");
+	    badGuySubjectEdTxt.setText("Ex:一種水果");
 	    
 	    
 	    newBie.setText("菜鳥:");
 	    mView.addView(newBie, 200, 100, 50, 800);
 	    mView.addView(newBieSubjectEdTxt, 500, 100, 250, 780);
-	    newBieSubjectEdTxt.setHint("Ex:香蕉");
+	    newBieSubjectEdTxt.setText("Ex:香蕉");
 	    
 	    doneBt.setText("Done");
 	    mView.addView(doneBt, 200, 100, 550, 1080);
@@ -104,9 +104,8 @@ public class SubjectActivity extends Activity{
 
 				bundle.putString("GoodGuy_Subject", goodGuyText.toString());
 				bundle.putString("BadGuy_Subject" , badGuyText.toString());
-				bundle.putString("New_Bie_Subject", newBieText.toString());
+				bundle.putString("NewBie_Subject", newBieText.toString());
 				bundle.putInt("Player_Number", nPlayers);
-				
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}

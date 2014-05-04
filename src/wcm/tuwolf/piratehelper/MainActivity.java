@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 
 
@@ -22,7 +23,7 @@ public class MainActivity extends Activity{
 	    mView.setBackgroundColor(Color.WHITE);
 
 	    Button bt1 = new Button(this);
-	    bt1.setText("我換");
+	    bt1.setText("出題");
 	    
 	    //add bt1 to mView at (0,0) with width = 200 and height = 300
 	    mView.addView(bt1, 300, 100, 234, 500);
@@ -44,7 +45,7 @@ public class MainActivity extends Activity{
 		});
 	    	
 	    Button bt2 = new Button(this);
-	    bt2.setText("choosing activity");
+	    bt2.setText("Choosing");
 	    bt2.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -57,7 +58,7 @@ public class MainActivity extends Activity{
 	    mView.addView(bt2,300,100,234,200);
 	    
 	    Button bt3 = new Button(this);
-	    bt3.setText("Gaming Activity");
+	    bt3.setText("Gaming");
 	    bt3.setOnClickListener(new OnClickListener() {
 			
 			@Override

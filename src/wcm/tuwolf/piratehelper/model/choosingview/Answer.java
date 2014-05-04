@@ -8,24 +8,62 @@ public class Answer {
 	public final static int NORMAL_PEOPLE = 1;
 	public final static int BAD_PEOPLE = 2;
 	
-	public static String goodAnswer ="defaultGood";
-	public static String normalAnswer ="defaultNormal";
-	public static String badAnswer ="defaultBad";
+	public String goodAnswer ="defaultGood";
+	public String normalAnswer ="defaultNormal";
+	public String badAnswer ="defaultBad";
 	
-	int mAnswer;
+	private final NeedPeopleNumberSet NeedPeopleNumberSet[] = {
+		new NeedPeopleNumberSet(0, 0, 0),
+		new NeedPeopleNumberSet(1, 0, 0),
+		new NeedPeopleNumberSet(1, 0, 1),
+		new NeedPeopleNumberSet(1, 1, 1),
+		new NeedPeopleNumberSet(2, 1, 1),
+		new NeedPeopleNumberSet(2, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2),
+		new NeedPeopleNumberSet(3, 1, 2)
+	};
 	
-	public Answer(int a)
+	NeedPeopleNumberSet mNeedPeopleNumberSet;
+	//int mAnswer;
+	
+	public Answer(int peopleNumber)
 	{
-		mAnswer = a;
+		mNeedPeopleNumberSet = getNeedPeopleNumber(peopleNumber);
+		//mAnswer = a;
 	}
 	
-	public int getValue()
+	public int needGood()
 	{
-		return mAnswer;
+		return mNeedPeopleNumberSet.needGood;
 	}
-	public String toString()
+	public int needNormal()
 	{
-		switch(mAnswer)
+		return mNeedPeopleNumberSet.needNormal;
+	}
+	public int needBad()
+	{
+		return mNeedPeopleNumberSet.needBad;
+	}
+//	public int getValue()
+//	{
+//		return mAnswer;
+//	}
+//	
+	public  NeedPeopleNumberSet getNeedPeopleNumber(int peopleNum)
+	{
+		return NeedPeopleNumberSet[peopleNum];
+	}
+	public String getAnswerString(int answer)
+	{
+		switch(answer)
 		{
 			case GOOD_PEOPLE:
 				return goodAnswer;
@@ -38,10 +76,22 @@ public class Answer {
 		return null;
 	}
 	
-	static public void setAnswerString(String g,String n,String b)
+	public void setAnswerString(String g,String n,String b)
 	{
 		goodAnswer = g;
 		normalAnswer = n;
 		badAnswer = b;
+	}
+	
+	public class NeedPeopleNumberSet
+	{
+		public int needGood, needNormal, needBad;
+		NeedPeopleNumberSet(int ng,int nn, int nb){
+		
+			needGood = ng;
+			needNormal = nn;
+			needBad = nb;
+			
+		}
 	}
 }
