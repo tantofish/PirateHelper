@@ -3,11 +3,12 @@ package wcm.tuwolf.piratehelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import wcm.tuwolf.piratehelper.view.choosingview.GamingView;
+import wcm.tuwolf.piratehelper.view.gamingactivity.GamingView;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class GamingActivity extends Activity{
 	GamingView mView;
@@ -27,6 +28,8 @@ public class GamingActivity extends Activity{
 		mView.locateButtons();
 		
 		mView.setToContentView(this);
+		//mView.showAnsBtn.setOnClickListener(new showAnswerBtnClickListener());
+		mView.showAnsBtn.setOnTouchListener(new showAnswerBtnTouchListener());
 	}
 	
 	public ArrayList<Integer> IntArraytoArrayList(int[] intArray){
@@ -37,6 +40,24 @@ public class GamingActivity extends Activity{
 		    integerArray[idx++] = intValue;
 		}
 		return new ArrayList<Integer>(Arrays.asList(integerArray));
+	}
+	
+
+	class showAnswerBtnTouchListener implements View.OnTouchListener{
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			// TODO Auto-generated method stub
+			if (event.getAction() == MotionEvent.ACTION_DOWN ) {
+				mView.setButtonAnswers();
+                return true;
+            }else if(event.getAction() == MotionEvent.ACTION_UP){
+            	mView.setButtonQuestions();
+            }
+
+            
+			
+			return false;
+		}
 	}
 	
 }
