@@ -3,6 +3,7 @@ package wcm.tuwolf.piratehelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import wcm.tuwolf.piratehelper.view.gamingactivity.CircleView;
 import wcm.tuwolf.piratehelper.view.gamingactivity.GamingView;
 import android.app.Activity;
 import android.graphics.Color;
@@ -11,25 +12,26 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class GamingActivity extends Activity{
-	GamingView mView;
+	GamingView gView;
+	CircleView cView;
 	ArrayList<Integer> mPeopleState;
 	
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mView = new GamingView(this);
-		mView.setBackgroundColor(Color.WHITE);
+		gView = new GamingView(this);
+		gView.setBackgroundColor(Color.WHITE);
+		cView = gView.getCircleView();
 		
+		//Handling parameters transfer
 		Bundle bundle = this.getIntent().getExtras();
 		int[] intArray = bundle.getIntArray("PEOPLE_STATE");
-		
 		mPeopleState = IntArraytoArrayList(intArray);
-		mView.setPeopleState(mPeopleState);
-		mView.locateButtons();
+		cView.setPeopleState(mPeopleState);
+		cView.locateButtons();
 		
-		mView.setToContentView(this);
-		//mView.showAnsBtn.setOnClickListener(new showAnswerBtnClickListener());
-		mView.showAnsBtn.setOnTouchListener(new showAnswerBtnTouchListener());
+		gView.setToContentView(this);
+		gView.showAnsBtn.setOnTouchListener(new showAnswerBtnTouchListener());
 	}
 	
 	public ArrayList<Integer> IntArraytoArrayList(int[] intArray){
@@ -48,14 +50,12 @@ public class GamingActivity extends Activity{
 		public boolean onTouch(View v, MotionEvent event) {
 			// TODO Auto-generated method stub
 			if (event.getAction() == MotionEvent.ACTION_DOWN ) {
-				mView.setButtonAnswers();
+				cView.setButtonAnswers();
                 return true;
             }else if(event.getAction() == MotionEvent.ACTION_UP){
-            	mView.setButtonQuestions();
+            	cView.setButtonQuestions();
+            	return true;
             }
-
-            
-			
 			return false;
 		}
 	}
