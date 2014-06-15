@@ -5,14 +5,12 @@ import itri.u9lab.towolf.ratiofixer.RatioRelativeLayout;
 
 import java.util.ArrayList;
 
-import wcm.tuwolf.piratehelper.ChoosingActivity;
-import wcm.tuwolf.piratehelper.SubjectActivity;
 import wcm.tuwolf.piratehelper.model.choosingview.Answer;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -137,12 +135,32 @@ public class ChoosingView extends RatioRelativeLayout {
 			normalRemain= mAnswer.needNormal();
 			badRemain = mAnswer.needBad();
 			
+			
+			
 			for (int i = 0; i < peopleItemList.size(); i++) {
 				if (i == currentPeople)
 				{
-					peopleItemList.get(i).setBackgroundColor(Color.MAGENTA);
+//					peopleItemList.get(i).setBackgroundColor(Color.MAGENTA);
+					
+					//start select animation
+					Button b = peopleItemList.get(i);
+					int h = b.getLayoutParams().height;
+					int w = b.getLayoutParams().width;
+					  Animation am = new ScaleAnimation( 0.9f, 1.1f, 0.9f, 1.2f,w/2,h/2 );
+					    am.setDuration( 500 );
+					    am.setRepeatCount( -1 );
+					    am.setRepeatMode(Animation.REVERSE);
+					    peopleItemList.get(i).setAnimation(am);
+					    am.startNow();
+				
 				}
-				else if (mPeopleState.get(i) == Answer.GOOD_PEOPLE)
+				else
+				{
+					//stop select animation
+					peopleItemList.get(i).clearAnimation();
+				}
+				
+			    if (mPeopleState.get(i) == Answer.GOOD_PEOPLE)
 				{
 					peopleItemList.get(i).setBackgroundColor(Color.GREEN);
 					goodRemain--;
@@ -274,17 +292,27 @@ public class ChoosingView extends RatioRelativeLayout {
 		
 		
 		class showAnswerViewListener implements View.OnClickListener {
-			int mAnswer;
+			int mAnswerValue;
 
 			public showAnswerViewListener(int a) {
 				// TODO Auto-generated constructor stub
-				mAnswer = a;
+				mAnswerValue = a;
 			}
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				mAV.setAnswerText(mAnswer);
+				int remain = 0;
+				if(mAnswerValue == Answer.GOOD_PEOPLE)
+				remain = goodRemain;
+				else if( mAnswerValue == Answer.NORMAL_PEOPLE)
+				remain = normalRemain;
+				else if(mAnswerValue == Answer.BAD_PEOPLE)
+				remain = badRemain;
+				
+				if(remain <= 0)
+					return;
+				mAV.setAnswerText(mAnswerValue);
 				mAV.setVisibility(VISIBLE);
 			}
 
