@@ -5,6 +5,7 @@ import itri.u9lab.towolf.ratiofixer.RatioRelativeLayout;
 
 import java.util.ArrayList;
 
+import wcm.tuwolf.piratehelper.R;
 import wcm.tuwolf.piratehelper.model.choosingview.Answer;
 import android.content.Context;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.RelativeLayout.LayoutParams;
 
 public class ChoosingView extends RatioRelativeLayout {
 
@@ -42,7 +44,7 @@ public class ChoosingView extends RatioRelativeLayout {
 		mCV = new CircleView(context);
 		mPeopleNumber = peopleNum;
 		mCV.setPeopleNum(mPeopleNumber);
-		this.addView(mCV, 768, 615, 0, 0);
+		this.addView(mCV, 768, 768, 0, 0);
 		//mCV.setCurrentPeople(0);
 		
 		
@@ -116,17 +118,56 @@ public class ChoosingView extends RatioRelativeLayout {
 				mPeopleState.add(-1);
 			}
 
-			int w = 120;
-			int h = 120;
+//			int w = 120;
+//			int h = 120;
+//
+//			int d = 28;
+//			int floor = 1;
+//			for (int i = 0; i < peopleItemList.size(); i++) {
+//				floor = i / 5 + 1;
+//				int woffset = (d * (i + 1) + (w * i)) % 740;
+//				this.addView(peopleItemList.get(i),
+//						mRF.getLayoutParam(w, h, woffset, (h + d) * floor));
+//			}
+			locateButtons();
+		}
+		
+		public void locateButtons(){
+			
+			RatioFixer rf = RatioFixer.getGlobalRatioFixer();
+			
+			int btnW = 128;	// Button Width
+			int btnH = 128;	// Button Height
+			
+			int circleCenterX = 384;
+			int circleCenterY = 384;
+			
+			
+			
+			double circleRadius =290-btnW/2.f;
+			
+			int nPlayers = peopleItemList.size();
+			double dTheta = (2 * Math.PI ) / (double) nPlayers;
+			
 
-			int d = 28;
-			int floor = 1;
-			for (int i = 0; i < peopleItemList.size(); i++) {
-				floor = i / 5 + 1;
-				int woffset = (d * (i + 1) + (w * i)) % 740;
-				this.addView(peopleItemList.get(i),
-						mRF.getLayoutParam(w, h, woffset, (h + d) * floor));
+			for(int i = 0 ; i < nPlayers ; i++){
+				Button btn = peopleItemList.get(i);
+				//btn.setBackgroundResource(R.drawable.question);
+				//peopleItemList.add(btn);
+				
+				
+				
+				double theta = -Math.PI / 2 + i * dTheta; 
+				int x = (int) (circleCenterX + circleRadius*Math.cos(theta));
+				int y = (int) (circleCenterY + circleRadius*Math.sin(theta));
+				
+
+				
+				
+				this.addView(btn, rf.getLayoutParam(128, 128, x-btnW/2, y-btnH/2));
+			
 			}
+
 		}
 
 		private void invalidateView()
@@ -162,22 +203,22 @@ public class ChoosingView extends RatioRelativeLayout {
 				
 			    if (mPeopleState.get(i) == Answer.GOOD_PEOPLE)
 				{
-					peopleItemList.get(i).setBackgroundColor(Color.GREEN);
+					peopleItemList.get(i).setBackgroundResource(R.drawable.goodguy);
 					goodRemain--;
 				}
 				else if (mPeopleState.get(i) == Answer.NORMAL_PEOPLE)
 				{
-					peopleItemList.get(i).setBackgroundColor(Color.YELLOW);
+					peopleItemList.get(i).setBackgroundResource(R.drawable.newbie);
 					normalRemain--;
 				}
 				else if (mPeopleState.get(i) == Answer.BAD_PEOPLE)
 				{
-					peopleItemList.get(i).setBackgroundColor(Color.RED);
+					peopleItemList.get(i).setBackgroundResource(R.drawable.badguy);
 					badRemain--;
 				}
 				else
 				{
-					peopleItemList.get(i).setBackgroundColor(Color.BLUE);
+					peopleItemList.get(i).setBackgroundResource(R.drawable.question);
 				}
 					
 			}
@@ -236,7 +277,7 @@ public class ChoosingView extends RatioRelativeLayout {
 			super(context);
 			// TODO Auto-generated constructor stub
 			this.setBackgroundColor(Color.GREEN);
-			this.setLayoutParams(mRF.getLayoutParam(768, 615, 0, 615));
+			this.setLayoutParams(mRF.getLayoutParam(768, 462, 0, 768));
 
 			int w = 200, h = 150, d = 42;
 			goodManBtn = new Button(mContext);
@@ -246,8 +287,8 @@ public class ChoosingView extends RatioRelativeLayout {
 					Answer.GOOD_PEOPLE));
 			goodManText = new TextView(mContext);
 			//goodManText.setBackgroundColor(Color.DKGRAY);
-			this.addView(goodManBtn, mRF.getLayoutParam(w, h, d, 100));
-			this.addView(goodManText, mRF.getLayoutParam(w, h, d, 100 + h + d));
+			this.addView(goodManBtn, mRF.getLayoutParam(w, h, d, 80));
+			this.addView(goodManText, mRF.getLayoutParam(w, h, d, 80 + h + d));
 
 			normalManBtn = new Button(mContext);
 			normalManBtn.setBackgroundColor(Color.CYAN);
@@ -256,9 +297,9 @@ public class ChoosingView extends RatioRelativeLayout {
 					Answer.NORMAL_PEOPLE));
 			normalManText = new TextView(mContext);
 			//normalManText.setBackgroundColor(Color.DKGRAY);
-			this.addView(normalManBtn, mRF.getLayoutParam(w, h, d * 2 + w, 100));
+			this.addView(normalManBtn, mRF.getLayoutParam(w, h, d * 2 + w, 80));
 			this.addView(normalManText,
-					mRF.getLayoutParam(w, h, d * 2 + w, 100 + h + d));
+					mRF.getLayoutParam(w, h, d * 2 + w, 80 + h + d));
 
 			badManBtn = new Button(mContext);
 			badManBtn.setBackgroundColor(Color.CYAN);
@@ -269,15 +310,15 @@ public class ChoosingView extends RatioRelativeLayout {
 			//badManText.setBackgroundColor(Color.DKGRAY);
 			// badManBtn.setOnClickListener()
 			this.addView(badManBtn,
-					mRF.getLayoutParam(w, h, d * 3 + w * 2, 100));
+					mRF.getLayoutParam(w, h, d * 3 + w * 2, 80));
 			this.addView(badManText,
-					mRF.getLayoutParam(w, h, d * 3 + w * 2, 100 + h + d));
+					mRF.getLayoutParam(w, h, d * 3 + w * 2, 80 + h + d));
 			
 			
 			startBtn = new Button(mContext);
 			startBtn.setText("Start!");
 			this.addView(startBtn,
-					mRF.getLayoutParam(300, 100, 768-300-d, 615-100-d));
+					mRF.getLayoutParam(300, 100, 768-300-d, 462-100-d));
 			
 
 		}
