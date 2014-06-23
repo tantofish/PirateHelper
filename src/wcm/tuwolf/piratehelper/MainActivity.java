@@ -44,31 +44,31 @@ public class MainActivity extends Activity{
 			}
 		});
 	    	
-	    Button bt2 = new Button(this);
-	    bt2.setText("Choosing");
-	    bt2.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(MainActivity.this, ChoosingActivity.class);
-				startActivity(intent);
-			}
-		});
-	    mView.addView(bt2,300,100,234,200);
-	    
-	    Button bt3 = new Button(this);
-	    bt3.setText("Gaming");
-	    bt3.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(MainActivity.this, GamingActivity.class);
-				startActivity(intent);
-			}
-		});
-	    mView.addView(bt3,300,100,234,350);
+//	    Button bt2 = new Button(this);
+//	    bt2.setText("Choosing");
+//	    bt2.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				// TODO Auto-generated method stub
+//				Intent intent = new Intent(MainActivity.this, ChoosingActivity.class);
+//				startActivity(intent);
+//			}
+//		});
+//	    mView.addView(bt2,300,100,234,200);
+//	    
+//	    Button bt3 = new Button(this);
+//	    bt3.setText("Gaming");
+//	    bt3.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				// TODO Auto-generated method stub
+//				Intent intent = new Intent(MainActivity.this, GamingActivity.class);
+//				startActivity(intent);
+//			}
+//		});
+//	    mView.addView(bt3,300,100,234,350);
 	    
 	    
 	    mView.setToContentView(this);
