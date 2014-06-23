@@ -9,6 +9,7 @@ import wcm.tuwolf.piratehelper.R;
 import wcm.tuwolf.piratehelper.model.choosingview.Answer;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -46,7 +47,7 @@ public class ChoosingView extends RatioRelativeLayout {
 		mCV.setPeopleNum(mPeopleNumber);
 		this.addView(mCV, 768, 768, 0, 0);
 		//mCV.setCurrentPeople(0);
-		
+		mCV.setBackgroundResource(R.drawable.main_bg);
 		
 		mBV = new BottomView(context);
 		this.addView(mBV);
@@ -276,49 +277,65 @@ public class ChoosingView extends RatioRelativeLayout {
 		public BottomView(Context context) {
 			super(context);
 			// TODO Auto-generated constructor stub
-			this.setBackgroundColor(Color.GREEN);
+			this.setBackgroundColor(Color.BLACK);
 			this.setLayoutParams(mRF.getLayoutParam(768, 462, 0, 768));
 
-			int w = 200, h = 150, d = 42;
+			int w = 175, h = 175, d = (768-3*w)/4;
 			goodManBtn = new Button(mContext);
-			goodManBtn.setText("選好人");
-			goodManBtn.setBackgroundColor(Color.CYAN);
+			//goodManBtn.setText("選好人");
+			//goodManBtn.setBackgroundColor(Color.CYAN);
+			goodManBtn.setBackgroundResource(R.drawable.goodguy);
 			goodManBtn.setOnClickListener(new showAnswerViewListener(
 					Answer.GOOD_PEOPLE));
 			goodManText = new TextView(mContext);
+			goodManText.setTextColor(Color.WHITE);
 			//goodManText.setBackgroundColor(Color.DKGRAY);
 			this.addView(goodManBtn, mRF.getLayoutParam(w, h, d, 80));
-			this.addView(goodManText, mRF.getLayoutParam(w, h, d, 80 + h + d));
+			this.addView(goodManText, mRF.getLayoutParam(w, h, d+w/2-10, 20));
 
 			normalManBtn = new Button(mContext);
-			normalManBtn.setBackgroundColor(Color.CYAN);
-			normalManBtn.setText("選菜鳥");
+			//normalManBtn.setBackgroundColor(Color.CYAN);
+			//normalManBtn.setText("選菜鳥");
+			normalManBtn.setBackgroundResource(R.drawable.newbie);
 			normalManBtn.setOnClickListener(new showAnswerViewListener(
 					Answer.NORMAL_PEOPLE));
 			normalManText = new TextView(mContext);
+			normalManText.setTextColor(Color.WHITE);
 			//normalManText.setBackgroundColor(Color.DKGRAY);
 			this.addView(normalManBtn, mRF.getLayoutParam(w, h, d * 2 + w, 80));
 			this.addView(normalManText,
-					mRF.getLayoutParam(w, h, d * 2 + w, 80 + h + d));
+					mRF.getLayoutParam(w, h, d * 2 + w + w/2-10, 20));
 
 			badManBtn = new Button(mContext);
-			badManBtn.setBackgroundColor(Color.CYAN);
-			badManBtn.setText("選壞人");
+			//badManBtn.setBackgroundColor(Color.CYAN);
+			//badManBtn.setText("選壞人");
+			badManBtn.setBackgroundResource(R.drawable.badguy);
 			badManBtn.setOnClickListener(new showAnswerViewListener(
 					Answer.BAD_PEOPLE));
 			badManText = new TextView(mContext);
+			badManText.setTextColor(Color.WHITE);
 			//badManText.setBackgroundColor(Color.DKGRAY);
 			// badManBtn.setOnClickListener()
 			this.addView(badManBtn,
 					mRF.getLayoutParam(w, h, d * 3 + w * 2, 80));
 			this.addView(badManText,
-					mRF.getLayoutParam(w, h, d * 3 + w * 2, 80 + h + d));
+					mRF.getLayoutParam(w, h, d * 3 + w * 2 + w/2-10, 20));
 			
 			
 			startBtn = new Button(mContext);
-			startBtn.setText("Start!");
-			this.addView(startBtn,
-					mRF.getLayoutParam(300, 100, 768-300-d, 462-100-d));
+			startBtn.setBackgroundResource(R.drawable.start_btn2);
+			this.addView(startBtn, mRF.getLayoutParam(200, 100, 768-200-d, 462-100-d));
+			startBtn.setOnTouchListener(new OnTouchListener() {
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if(event.getAction() == MotionEvent.ACTION_DOWN){
+						startBtn.setBackgroundResource(R.drawable.start_btn2_pressed);
+					}else if(event.getAction() == MotionEvent.ACTION_UP){
+						startBtn.setBackgroundResource(R.drawable.start_btn2);
+					}
+					return false;
+				}
+			});
 			
 
 		}
