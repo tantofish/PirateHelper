@@ -6,6 +6,7 @@ import wcm.tuwolf.piratehelper.model.choosingview.Answer;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,9 @@ public class AnswerView extends RelativeLayout{
 		
 		// It seems that set gravity to center should put the text on the center of the TextView,
 		// But it doesn't work...
-		answerText.setGravity(CENTER_HORIZONTAL);
+		//cyy answer: you should use Gravity.CENTER !!
+		answerText.setGravity(Gravity.CENTER);
+		
 		this.addView(answerText,mRF.getLayoutParam(768, 200, 0, 400));
 		okBtn = new Button(context);
 		okBtn.setBackgroundResource(R.drawable.ok_btn);

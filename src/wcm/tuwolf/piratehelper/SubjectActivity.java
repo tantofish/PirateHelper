@@ -1,15 +1,13 @@
 package wcm.tuwolf.piratehelper;
 
+import itri.u9lab.towolf.ratiofixer.RatioFixer;
 import itri.u9lab.towolf.ratiofixer.RatioRelativeLayout;
 import android.R.string;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Selection;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -24,7 +22,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SubjectActivity extends Activity{
 	static Integer nPlayers;
@@ -51,7 +48,7 @@ public class SubjectActivity extends Activity{
 
 	    RatioRelativeLayout mView = new RatioRelativeLayout(this);
 	    mView.setBackgroundResource(R.drawable.main_bg);
-
+RatioFixer rf = mView.getRatioFixer();
 	    
 	    nPlayerText = new TextView(this);
 	    goodGuy = new TextView(this);
@@ -74,9 +71,10 @@ public class SubjectActivity extends Activity{
 	}
 	public void setFormats(RatioRelativeLayout mView){
 		
-		goodGuySubjectEdTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-	    badGuySubjectEdTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-	    newBieSubjectEdTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+		RatioFixer rf = RatioFixer.getGlobalRatioFixer();
+		goodGuySubjectEdTxt.setTextSize(TypedValue.COMPLEX_UNIT_PX,rf.getRealValue(40));
+	    badGuySubjectEdTxt.setTextSize(TypedValue.COMPLEX_UNIT_PX,rf.getRealValue(40));
+	    newBieSubjectEdTxt.setTextSize(TypedValue.COMPLEX_UNIT_PX,rf.getRealValue(40));
 	    
 	    mView.addView(nPlayerSpinner, 150, 100, 250, 260);
 	    ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item,new Integer[]{5,6,7,8,9,10});

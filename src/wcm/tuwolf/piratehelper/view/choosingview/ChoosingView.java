@@ -96,6 +96,15 @@ public class ChoosingView extends RatioRelativeLayout {
 		mBV.setRemainNumber(good, normal, bad);
 	}
 
+	public boolean	isReadyToStart()
+	{
+		for(int i = 0 ; i< mPeopleState.size(); i++)
+		{
+			if(mPeopleState.get(i) == -1)
+				return false;
+		}
+		return true;
+	}
 	class CircleView extends RelativeLayout {
 		int currentPeople = 0;
 		ArrayList<Button> peopleItemList;

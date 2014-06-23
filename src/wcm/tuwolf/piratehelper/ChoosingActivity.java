@@ -65,6 +65,9 @@ public class ChoosingActivity extends Activity{
 		
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			if(!mView.isReadyToStart())
+				return;
+			
 			Intent intent = new Intent();
 			intent.setClass(ChoosingActivity.this, GamingActivity.class);
 			Bundle bundle = new Bundle();
