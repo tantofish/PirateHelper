@@ -6,10 +6,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class MainActivity extends Activity{
@@ -20,22 +27,18 @@ public class MainActivity extends Activity{
 	    
 	    //cyy setting global ratio fixer
 	    RatioFixer.setGlobalRatioFixer(mView.getRatioFixer());
-	    mView.setBackgroundColor(Color.WHITE);
-
-	    Button bt1 = new Button(this);
-	    bt1.setText("出題");
+	    mView.setBackgroundResource(R.drawable.main_bg);
 	    
-	    //add bt1 to mView at (0,0) with width = 200 and height = 300
-	    mView.addView(bt1, 300, 100, 234, 500);
+	    
+	    // Is there anyway that I don't have to set start_btn as a "final" Button?
+	    // (when I have to use it in the onTouch function)
+	    final Button start_btn = new Button(this);
+	    start_btn.setBackgroundResource(R.drawable.start_btn);
+	    mView.addView(start_btn, 300, 120, 234, 900);
 
-	    //TextView tv1 = new TextView(this);
-	    //tv1.setText("Hello World");
-	    //tv1.setBackgroundColor(Color.CYAN);
-
-	    //add tv1 to mView at (300,400) with wrap_content width and height
-	    //mView.addView(tv1, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, 300, 400);
-	    bt1.setOnClickListener(new OnClickListener() {
-			
+	    
+	    // Change activity to Subject Activity
+	    start_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -70,9 +73,8 @@ public class MainActivity extends Activity{
 //		});
 //	    mView.addView(bt3,300,100,234,350);
 	    
+
 	    
 	    mView.setToContentView(this);
-
 	}	
-	
 }
