@@ -46,32 +46,54 @@ public class MainActivity extends Activity{
 				startActivity(intent);
 			}
 		});
-	    	
-//	    Button bt2 = new Button(this);
-//	    bt2.setText("Choosing");
-//	    bt2.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View arg0) {
-//				// TODO Auto-generated method stub
-//				Intent intent = new Intent(MainActivity.this, ChoosingActivity.class);
-//				startActivity(intent);
-//			}
-//		});
-//	    mView.addView(bt2,300,100,234,200);
-//	    
-//	    Button bt3 = new Button(this);
-//	    bt3.setText("Gaming");
-//	    bt3.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View arg0) {
-//				// TODO Auto-generated method stub
-//				Intent intent = new Intent(MainActivity.this, GamingActivity.class);
-//				startActivity(intent);
-//			}
-//		});
-//	    mView.addView(bt3,300,100,234,350);
+	    
+	    // OnTouch Listener is implemented for start button image 
+	    start_btn.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+					start_btn.setBackgroundResource(R.drawable.start_btn_pressed);
+				}else if(event.getAction() == MotionEvent.ACTION_UP){
+					start_btn.setBackgroundResource(R.drawable.start_btn);
+				}
+				// TODO Auto-generated method stub
+				return false;
+			}
+		});
+	    
+	    final ImageView logo_iv = new ImageView(this);
+	    logo_iv.setBackgroundResource(R.drawable.logo);
+	    mView.addView(logo_iv, 600, 160, 50, 120);
+	    
+	    final Animation alphaAnim = new AlphaAnimation(0.4f, 1.0f);
+	    alphaAnim.setDuration(500);
+	    alphaAnim.setRepeatCount(Animation.INFINITE);
+	    alphaAnim.setRepeatMode(Animation.REVERSE);
+	    
+	    final Animation scaleAnim = new ScaleAnimation( 1.1f, 0.9f, 0.9f, 1.2f, 300, 80);
+	    scaleAnim.setDuration( 500 );
+	    scaleAnim.setRepeatCount(Animation.INFINITE);
+	    scaleAnim.setRepeatMode(Animation.REVERSE);
+	    
+	    
+	    logo_iv.setOnTouchListener(new OnTouchListener() {
+	    	int animSwitch = 1;
+			@Override
+			
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+					if(animSwitch == 1){
+						logo_iv.startAnimation(scaleAnim);
+						animSwitch = 0;
+					}else if(animSwitch == 0){
+						logo_iv.startAnimation(alphaAnim);
+						animSwitch = 1;
+					}
+				}
+				return false;
+			}
+		});
 	    
 
 	    
