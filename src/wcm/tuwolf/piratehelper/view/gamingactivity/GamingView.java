@@ -23,7 +23,7 @@ public class GamingView extends RatioRelativeLayout{
 		
 		//Circle View
 		cView = new CircleView(context);
-		cView.setBackgroundColor(Color.DKGRAY);
+		
 		
 		//Show Answer Button
 		showAnsBtn = new Button(mContext);

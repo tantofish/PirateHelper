@@ -38,6 +38,7 @@ public class CircleView extends RelativeLayout{
 		mContext = context;
 		playerButtonList = new ArrayList<Button>();
 		mLP = this.getLayoutParams();
+		this.setBackgroundResource(R.drawable.main_bg);
 	}
 
 	
@@ -68,12 +69,6 @@ public class CircleView extends RelativeLayout{
 			double theta = -Math.PI / 2 + i * dTheta; 
 			int x = (int) (circleCenterX + circleRadius*Math.cos(theta));
 			int y = (int) (circleCenterY + circleRadius*Math.sin(theta));
-			
-			
-			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-			
-			// To Fix!!!!!!!!
 			
 			
 			this.addView(btn, rf.getLayoutParam(128, 128, x-btnW/2, y-btnH/2));
