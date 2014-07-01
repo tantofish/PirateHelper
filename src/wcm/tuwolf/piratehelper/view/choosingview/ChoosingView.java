@@ -105,6 +105,7 @@ public class ChoosingView extends RatioRelativeLayout {
 		}
 		return true;
 	}
+	
 	class CircleView extends RelativeLayout {
 		int currentPeople = 0;
 		ArrayList<Button> peopleItemList;

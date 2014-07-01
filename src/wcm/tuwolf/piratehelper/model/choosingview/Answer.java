@@ -8,9 +8,9 @@ public class Answer {
 	public final static int NORMAL_PEOPLE = 1;
 	public final static int BAD_PEOPLE = 2;
 	
-	public String goodAnswer ="defaultGood";
-	public String normalAnswer ="defaultNormal";
-	public String badAnswer ="defaultBad";
+	static public String goodAnswer ="defaultGood";
+	static public String normalAnswer ="defaultNormal";
+	static public String badAnswer ="defaultBad";
 	
 	private final NeedPeopleNumberSet NeedPeopleNumberSet[] = {
 		new NeedPeopleNumberSet(0, 0, 0),
@@ -25,10 +25,6 @@ public class Answer {
 		new NeedPeopleNumberSet(5, 1, 3),
 		new NeedPeopleNumberSet(5, 1, 4),
 		new NeedPeopleNumberSet(6, 1, 4),
-		new NeedPeopleNumberSet(3, 1, 2),
-		new NeedPeopleNumberSet(3, 1, 2),
-		new NeedPeopleNumberSet(3, 1, 2),
-		new NeedPeopleNumberSet(3, 1, 2)
 	};
 	
 	NeedPeopleNumberSet mNeedPeopleNumberSet;

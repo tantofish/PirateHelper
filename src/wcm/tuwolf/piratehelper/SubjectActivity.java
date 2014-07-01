@@ -92,24 +92,24 @@ RatioFixer rf = mView.getRatioFixer();
 	    goodGuy.setTypeface(Typeface.DEFAULT_BOLD);
 	    mView.addView(goodGuy, 200, 100, 50, 440);
 	    mView.addView(goodGuySubjectEdTxt, 500, 100, 250, 450);
-	    goodGuySubjectEdTxt.setText("Ex:蘋果");
-	    //goodGuySubjectEdTxt.setHint("例：蘋果");
+	    //goodGuySubjectEdTxt.setText("Ex:蘋果");
+	    goodGuySubjectEdTxt.setHint("例：蘋果");
 	    
 	    badGuy.setText("壞人:");
 	    badGuy.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
 	    badGuy.setTypeface(Typeface.DEFAULT_BOLD);
 	    mView.addView(badGuy, 200, 100, 50, 620);
 	    mView.addView(badGuySubjectEdTxt, 500, 100, 250, 630);
-	    badGuySubjectEdTxt.setText("Ex:一種水果");
-	    //badGuySubjectEdTxt.setHint("例：一種水果");
+	    //badGuySubjectEdTxt.setText("Ex:一種水果");
+	    badGuySubjectEdTxt.setHint("例：一種水果");
 	    
 	    newBie.setText("菜鳥:");
 	    newBie.setTextSize(TypedValue.COMPLEX_UNIT_SP, 35);
 	    newBie.setTypeface(Typeface.DEFAULT_BOLD);
 	    mView.addView(newBie, 200, 100, 50, 800);
 	    mView.addView(newBieSubjectEdTxt, 500, 100, 250, 810);
-	    newBieSubjectEdTxt.setText("例：香蕉");
-	    //newBieSubjectEdTxt.setHint("例：香蕉");
+	    //newBieSubjectEdTxt.setText("例：香蕉");
+	    newBieSubjectEdTxt.setHint("例：香蕉");
 	    
 	    nextBtn.setBackgroundResource(R.drawable.next_btn);
 	    mView.addView(nextBtn, 200, 100, 284, 1050);

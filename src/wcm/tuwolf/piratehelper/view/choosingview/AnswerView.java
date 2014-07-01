@@ -1,10 +1,12 @@
 package wcm.tuwolf.piratehelper.view.choosingview;
 
 import itri.u9lab.towolf.ratiofixer.RatioFixer;
+
+
+
 import wcm.tuwolf.piratehelper.R;
 import wcm.tuwolf.piratehelper.model.choosingview.Answer;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -14,7 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class AnswerView extends RelativeLayout{
-
+	
 	RatioFixer mRF;
 	Answer mAnswer;
 	int answer;
